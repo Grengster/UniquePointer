@@ -40,22 +40,29 @@ UniquePtr<T>::operator bool() const
     return this == nullptr;
 }
 
+
+
+
 template <class T>
 void UniquePtr<T>::reset()
 {
-
+    this->ptr = NULL; //set current ptr to null
 }
 
-template <class T>
-void UniquePtr<T>::swap(T* other)
-{
 
+
+template <class T>
+void UniquePtr<T>::swap(T* other) noexcept
+{
+    T* temp = this; //no idea why cant swap unique with Template
+    this = other;
+    other = temp;
 }
 
 template <class T>
 typename UniquePtr<T>::pointer UniquePtr<T>::release()
 {
-    T* tempPtr = this->ptr;
+    T* tempPtr = this->ptr; //set current pointer to null and pass it to new object
 	this->ptr = nullptr;
     return tempPtr;
 }

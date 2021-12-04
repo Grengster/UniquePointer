@@ -23,9 +23,9 @@ public:
 	pointer operator->() const;
 	explicit operator bool() const;
 
-	static void swap(T* other);
+	void swap(T* other) noexcept;
 	pointer release();
-	static void reset();
+	void reset();
 };
 
 
