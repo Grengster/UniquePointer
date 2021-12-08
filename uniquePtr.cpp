@@ -19,7 +19,7 @@ UniquePtr<T>::~UniquePtr() {
 template <class T>
 typename UniquePtr<T>::pointer UniquePtr<T>::get()
 {
-    return this->ptr;
+    return *(this->ptr);
 }
 
 template <class T>
@@ -73,7 +73,11 @@ typename UniquePtr<T>::pointer UniquePtr<T>::release()
 }
 
 
-
+template <class T>
+int UniquePtr<T>::getNumber() const
+{
+    return reinterpret_cast<int>(*this->ptr);
+}
 
 
 // constructor

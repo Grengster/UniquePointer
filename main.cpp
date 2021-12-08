@@ -4,6 +4,7 @@
 #include <iostream>
 #include "uniquePtr.h"
 #include "uniquePtr.cpp"
+#include <cassert>
 
 int main()
 {
@@ -14,17 +15,19 @@ int main()
     UniquePtr<Entity> entityPointer(new Entity);
     UniquePtr<Entity> testPointer(new Entity);
     testPointer->id = 999;
-    //std::cout << entityPointer.get();
+    std::cout << "HERE" << entityPointer.getNumber() << "HERE";
     //UniquePtr<String> stringPointer(new String("Hello World"));
+    //assert(entityPointer.getNumber() == -1);
+    
 
     std::cout << "testPointer points to " << testPointer->id << '\n';
     std::cout << "entityPointer points to " << entityPointer->id << '\n';
     entityPointer.swap(testPointer);//doesnt work, no idea why cant swap
 
-    
-    //stPointer = entityPointer.release();
-    std::cout << "testPointer points to " << testPointer->id << '\n';
-    std::cout << "entityPointer points to " << entityPointer->id << '\n';
+    const Entity* temp_entity = entityPointer.release();
+
+    assert(entityPointer.ptr == nullptr);
+    std::cout << "entityPointer points to " << temp_entity->id << '\n';
     //std::cout << stringPointer->c_str();
 }
 

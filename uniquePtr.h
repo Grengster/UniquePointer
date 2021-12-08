@@ -26,6 +26,7 @@ public:
 
 	void swap(UniquePtr<T>& other) noexcept;
 	pointer release();
+	int getNumber() const;
 	void reset();
 };
 
