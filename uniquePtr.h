@@ -22,8 +22,9 @@ public:
 	class_type& operator *() const;
 	pointer operator->() const;
 	explicit operator bool() const;
+	UniquePtr& operator=(const T& number);
 
-	void swap(T* other) noexcept;
+	void swap(UniquePtr<T>& other) noexcept;
 	pointer release();
 	void reset();
 };

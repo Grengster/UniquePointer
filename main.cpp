@@ -12,18 +12,19 @@ int main()
     };
 
     UniquePtr<Entity> entityPointer(new Entity);
-    Entity* testPointer = new Entity();
-    testPointer->id = 5;
+    UniquePtr<Entity> testPointer(new Entity);
+    testPointer->id = 999;
     //std::cout << entityPointer.get();
     //UniquePtr<String> stringPointer(new String("Hello World"));
 
-    std::cout << entityPointer->id;
+    std::cout << "testPointer points to " << testPointer->id << '\n';
+    std::cout << "entityPointer points to " << entityPointer->id << '\n';
+    entityPointer.swap(testPointer);//doesnt work, no idea why cant swap
 
-    //entityPointer.swap(testPointer);//doesnt work, no idea why cant swap
-
-    std::cout << "manual_pointer points to " << testPointer->id << '\n';
-    testPointer = entityPointer.release();
-    std::cout << "manual_pointer points to " << testPointer->id << '\n';
+    
+    //stPointer = entityPointer.release();
+    std::cout << "testPointer points to " << testPointer->id << '\n';
+    std::cout << "entityPointer points to " << entityPointer->id << '\n';
     //std::cout << stringPointer->c_str();
 }
 

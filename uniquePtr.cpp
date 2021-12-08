@@ -46,16 +46,21 @@ UniquePtr<T>::operator bool() const
 template <class T>
 void UniquePtr<T>::reset()
 {
-    this->ptr = NULL; //set current ptr to null
+    this->ptr = nullptr; //set current ptr to null
 }
 
-
+template <class T>
+UniquePtr<T>& UniquePtr<T>::operator=(const T& number)
+{
+    ptr = number.ptr; //not sure if right
+    return *this;
+}
 
 template <class T>
-void UniquePtr<T>::swap(T* other) noexcept
+void UniquePtr<T>::swap(UniquePtr<T>& other) noexcept
 {
-    T* temp = this; //no idea why cant swap unique with Template
-    this = other;
+    UniquePtr temp = *this; 
+    *this = other;
     other = temp;
 }
 
