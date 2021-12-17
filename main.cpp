@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <string>
 #include "uniquePtr.h"
 #include "uniquePtr.cpp"
 #include <cassert>
@@ -14,8 +15,10 @@ int main()
 
     UniquePtr<Entity> entityPointer(new Entity);
     UniquePtr<Entity> testPointer(new Entity);
+    UniquePtr<std::string> test(new std::string("Hello World"));
+
     testPointer->id = 999;
-    std::cout << "HERE" << entityPointer.getNumber() << "HERE";
+    //std::cout << "HERE" << entityPointer.getNumber() << "HERE";
     //UniquePtr<String> stringPointer(new String("Hello World"));
     //assert(entityPointer.getNumber() == -1);
     
@@ -24,12 +27,19 @@ int main()
     std::cout << "entityPointer points to " << entityPointer->id << '\n';
     entityPointer.swap(testPointer);//doesnt work, no idea why cant swap
 
+    std::cout << (*test).c_str() << std::endl;
+    std::cout << test->c_str() << std::endl;
+
+
+
     const Entity* temp_entity = entityPointer.release();
 
     assert(entityPointer.ptr == nullptr);
     std::cout << "entityPointer points to " << temp_entity->id << '\n';
     //std::cout << stringPointer->c_str();
 }
+
+//eigene functions für tests
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
 // Debug program: F5 or Debug > Start Debugging menu

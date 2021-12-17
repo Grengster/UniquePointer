@@ -46,7 +46,7 @@ UniquePtr<T>::operator bool() const
 template <class T>
 void UniquePtr<T>::reset()
 {
-    this->ptr = nullptr; //set current ptr to null
+    this->ptr = nullptr; //set current ptr to null Memory testing!!!!
 }
 
 template <class T>
