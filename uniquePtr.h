@@ -17,7 +17,7 @@ public:
 	explicit UniquePtr(T* obj);
 	~UniquePtr();
 
-	pointer get();
+	pointer get() const;
 
 	class_type& operator *() const;
 	pointer operator->() const;

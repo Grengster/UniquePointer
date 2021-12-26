@@ -17,7 +17,7 @@ UniquePtr<T>::~UniquePtr() {
 }
 
 template <class T>
-typename UniquePtr<T>::pointer UniquePtr<T>::get()
+typename UniquePtr<T>::pointer UniquePtr<T>::get() const
 {
     return *(this->ptr);
 }
