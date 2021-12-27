@@ -4,8 +4,14 @@
 #include <iostream>
 #include <string>
 #include "uniquePtr.h"
-#include "uniquePtr.cpp"
 #include <cassert>
+
+template <class T>
+void test_cases_1(UniquePtr<T> test);
+template <class T>
+void test_cases_2(UniquePtr<T> entity, UniquePtr<T> test);
+template <class T>
+void test_cases_3(UniquePtr<T> test);
 
 int main()
 {
@@ -15,17 +21,21 @@ int main()
 
     UniquePtr<Entity> entityPointer(new Entity);
     UniquePtr<Entity> testPointer(new Entity);
-    UniquePtr<std::string> test(new std::string("Hello World"));
+    const UniquePtr<std::string> test(new std::string("Hello World"));
 
     testPointer->id = 999;
     //std::cout << "HERE" << entityPointer.getNumber() << "HERE";
     //UniquePtr<String> stringPointer(new String("Hello World"));
-    //assert(entityPointer.getNumber() == -1);
+    test_cases_1(entityPointer);
     
 
     std::cout << "testPointer points to " << testPointer->id << '\n';
     std::cout << "entityPointer points to " << entityPointer->id << '\n';
-    entityPointer.swap(testPointer);//doesnt work, no idea why cant swap
+
+
+	entityPointer.swap(testPointer);//doesnt work, no idea why cant swap
+    test_cases_2(entityPointer, testPointer);
+
 
     std::cout << (*test).c_str() << std::endl;
     std::cout << test->c_str() << std::endl;
@@ -34,20 +44,24 @@ int main()
 
     const Entity* temp_entity = entityPointer.release();
 
-    assert(entityPointer.ptr == nullptr);
+    
     std::cout << "entityPointer points to " << temp_entity->id << '\n';
-    //std::cout << stringPointer->c_str();
 }
 
-//eigene functions für tests
+template <class T>
+void test_cases_1(UniquePtr<T> test)
+{
+    assert(test->id == -1);
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+}
+template <class T>
+void test_cases_2(UniquePtr<T> entity, UniquePtr<T> test)
+{
+    assert(entity->id == 999);
+    assert(test->id == -1);
+}
+template <class T>
+void test_cases_3(UniquePtr<T> test)
+{
+    assert(test.ptr == nullptr);
+}
