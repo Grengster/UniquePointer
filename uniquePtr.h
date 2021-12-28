@@ -66,13 +66,14 @@ public:
 	}
 	pointer release()
 	{
-		T* tempPtr = this->ptr; //set current pointer to null and pass it to new object
+		T* temp_ptr = this->ptr; //set current pointer to null and pass it to new object
 		this->ptr = nullptr;
-		return tempPtr;
+		return temp_ptr;
 	}
 
 	void reset()
 	{
+		delete this->ptr;
 		this->ptr = nullptr;
 	}
 };
