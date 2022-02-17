@@ -15,9 +15,11 @@ public:
 
 	UniquePtr() : ptr(nullptr){}
 	explicit UniquePtr(T* obj) : ptr(obj){}
+
 	~UniquePtr()
 	{
-		this->release();
+		this->ptr = NULL; // set null and then delete
+		delete this->ptr;
 	}
 	UniquePtr(const UniquePtr& other) : UniquePtr(other.ptr){}		//copy constructor
 		
@@ -31,7 +33,6 @@ public:
 	
 	UniquePtr& operator=(UniquePtr<T>&& other) noexcept				// move assignment
 	{
-		std::swap(ptr, other.ptr);
 		return *this;
 	}
 
@@ -64,6 +65,7 @@ public:
 	{
 		std::swap(*this, other);
 	}
+
 	pointer release()
 	{
 		T* temp_ptr = this->ptr; //set current pointer to null and pass it to new object
