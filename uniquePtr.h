@@ -6,23 +6,24 @@
 //Literature: https://www.informit.com/articles/article.aspx?p=25264
 
 template <class T>
-class UniquePtr  
+class UniquePtr
 {
 public:
 	using class_type = T;
 	using pointer = T*;
 	pointer ptr;  //pointer to any data type we want
 
-	UniquePtr() : ptr(nullptr){}
-	explicit UniquePtr(T* obj) : ptr(obj){}
+	UniquePtr() : ptr(nullptr) {}
+	explicit UniquePtr(T* obj) : ptr(obj) {}
 
 	~UniquePtr()
 	{
 		this->ptr = NULL; // set null and then delete
 		delete this->ptr;
 	}
-	UniquePtr(const UniquePtr& other) : UniquePtr(other.ptr){}		//copy constructor
-		
+
+	UniquePtr(const UniquePtr& other) : UniquePtr(other.ptr) {}		//copy constructor
+
 	UniquePtr(UniquePtr&& other) noexcept : ptr(std::exchange(other.ptr, nullptr))	//move constructor
 	{}
 
@@ -30,9 +31,12 @@ public:
 	{
 		return *this = UniquePtr(number);
 	}
-	
+
 	UniquePtr& operator=(UniquePtr<T>&& other) noexcept				// move assignment
 	{
+		if (this->ptr == other.ptr)
+			return *this;
+		ptr = std::move(other.ptr);
 		return *this;
 	}
 
